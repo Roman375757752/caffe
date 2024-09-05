@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        a.button {
+            position: relative;
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            color: hsl(88, 70%, 30%);
+            text-shadow: rgba(255,255,255,.5) 0 -1px 0, rgba(0,0,0,.2) 0 .18em .15em;
+            text-decoration: none;
+            user-select: none;
+            margin: .5em;
+            padding: .5em .6em .4em .6em;
+            border-radius: 8px;
+            border-top: 1px solid rgba(255,255,255,.1);
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            outline: none;
+            background: #a2cf70 radial-gradient(rgba(255,255,255,0), rgba(255,255,255,.5));
+            box-shadow: 
+                inset rgba(255,255,255,.6) 0 .3em .3em,
+                inset rgba(0,0,0,.2) 0 -.1em .3em,
+                rgb(128,161,103) 0 7px 1px,
+                rgba(0,0,0,.2) 0 .5em 5px;
+            transition: background .2s ease-in-out;
+        }
+        a.button:hover {
+            background-color: hsl(88, 70%, 75%);
+        }
+        a.button:active {
+            top: .2em;
+            color: rgba(254,255,255,.9);
+            text-shadow: rgba(0,0,0,.2) 0 1px 2px;
+            box-shadow: 
+                inset rgba(255,255,255,.6) 0 .3em .3em,
+                inset rgba(0,0,0,.2) 0 -.1em .3em,
+                rgba(0,0,0,.4) 0 .1em 1px,
+                rgba(0,0,0,.3) 0 .2em 6px;
+        }
+        a.button:after {
+            content:  "";
+            position:  absolute; 
+            width:   90%;
+            height:  60%;
+            top:   0;
+            left:   5%;    
+            border-radius:    .5em .5em 1em 1em / .5em .5em 2em 2em;
+            background-image: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.3)); 
+        }
+        .button:active:after {
+            opacity: .6;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: lightgoldenrodyellow;
+            margin: 0;
+        }
+        h1 {
+            cursor: help;
+            margin: 0;
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            border-bottom: 3px solid #5200a5;
+        }
+        form {
+            margin: 0 auto;
+            background: rgba(0,186,255,0.77);
+            width: 450px;
+            height: 500px;
+            padding: 20px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+        }
+        .group {
+            margin: 10px;
+            padding: 5px;
+        }
+        label {
+            padding-left: 10px;
+            text-transform: uppercase;
+        }
+        input {
+            margin-top: 10px;
+            height: 40px;
+            width: 400px;
+            border-radius: 20px/20px;
+            border: none;
+            padding-left: 15px;
+            font-size: 18px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+        }
+        input:focus {
+            border: 2px solid #6c00ff; /* рамка */
+            transform: translateX(15px);
+            width: 385px;
+        }
+        button {
+            cursor: pointer;
+            padding: 10px 30px;
+            height: 50px;
+            color: #fff;
+            background: #5200a5;
+            border: none;
+            text-transform: uppercase;
+            font-size: 15px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+        }
+        button:hover {
+            opacity: .80;
+            font-weight: hold;
+            transform: scale(1.1); 
+        }
+    </style>
+</head>
+<body>
+    <a href="index.php" class="button">--Back--</a>
+    <form action="register.php" method="post">
+        <h1 title="Форма регистрации на сайте">Register</h1>
+        <div class="group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+        <div class="group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div class="group">
+            <label for="repeat_password">Repeat the password</label>
+            <input type="password" name="repeat_password" id="repeat_password" required>
+        </div>
+        <div class="group">
+            <label for="email">Mail</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div class="group">
+            <center><button type="submit">Register</button></center>
+        </div>
+    </form>
+</body>
+</html>

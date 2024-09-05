@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+        button {
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body style="background-color: paleturquoise;">
+    <div class="container">
+        <h1>Feedback</h1>
+        <form id="feedbackForm" action="submit_feedback.php" method="post" novalidate>
+            <label for="name">Name (surname optional)</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Massage</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <div id="notification" class="notification">The message has been sent successfully!</div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            if (!this.checkValidity()) {
+                showValidationErrors(this);
+                return;
+            }
+
+            const formData = new FormData(this);
+
+            fetch('submit_feedback.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                showNotification(result);
+                this.reset();
+            })
+            .catch(error => {
+                showNotification('An error occurred when sending the message. Please try again.');
+                console.error('Error:', error);
+            });
+        });
+
+        function showValidationErrors(form) {
+            const elements = form.elements;
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                if (element.validity.valueMissing) {
+                    element.setCustomValidity('This field is required');
+                } else if (element.validity.typeMismatch && element.type === 'email') {
+                    element.setCustomValidity('Please enter a valid email address');
+                } else {
+                    element.setCustomValidity('');
+                }
+            }
+            form.reportValidity();
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
